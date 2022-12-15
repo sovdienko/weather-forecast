@@ -1,0 +1,25 @@
+#!/usr/bin/env python3.11
+
+# Prerequisites
+# chmod +x whereami
+# sudo ln -s $(pwd)/whereami /usr/local/bin/
+# pip install pyobjc-framework-CoreLocation
+
+
+import CoreLocation
+from time import sleep
+
+manager = CoreLocation.CLLocationManager.alloc().init()
+manager.delegate()
+manager.startUpdatingLocation()
+while CoreLocation.CLLocationManager.authorizationStatus() != 3 or manager.location() is None:
+    sleep(.1)
+coord = manager.location().coordinate()
+
+
+if __name__ == "__main__":
+    print(f'Latitude: {coord.latitude}')
+    print(f'Longitude: {coord.longitude}')
+
+
+
